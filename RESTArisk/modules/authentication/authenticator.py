@@ -11,3 +11,7 @@ class Authenticator:
         self.authMethods.append(Local())
 
 
+    def authenticate(self,userToken):
+        print("Cica")
+        sso = SSO()
+        sso.authenticate(userToken)
