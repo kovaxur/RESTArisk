@@ -1,5 +1,5 @@
 from authentication.authentication import Authentication
 
-class SSO(Authentication):
+class Local(Authentication):
     def __init__(self):
         pass
