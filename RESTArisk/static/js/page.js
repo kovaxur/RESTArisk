@@ -3,10 +3,20 @@
  */
 
 $(document).ready(function() {
-    loadSite()
-})
+    loadHTMLElements()
+});
 
-function loadSite() {
-    console.log($(location).attr('href'));
-    $('#content').html()
-}
+function loadHTMLElements(callback=null) {
+    $("#navigation").load("navigation.html",function() {
+        loadHTMLElementsReady(callback);
+    });
+    $("#header").load("header.html",function() {
+        loadHTMLElementsReady(callback);
+    });
+
+
+
+};
+
+function loadHTMLElementsReady(callback=null) {
+};
