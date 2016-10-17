@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 settings.ini
+*.ini
+.ini
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
