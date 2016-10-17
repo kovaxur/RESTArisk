@@ -24,6 +24,8 @@ class SSO(Authentication):
         self.username = Settings.getConfigValue("oauth2","username")
         self.password = Settings.getConfigValue("oauth2","password")
         self.redirectOnAuth = Settings.getConfigValue("oauth2","redirect")
+        print(self.hostname)
+        print(self.redirectOnAuth)
         pass
 
     def reauthenticate(self):
@@ -37,19 +39,17 @@ class SSO(Authentication):
 
     def authenticate(self):
         data = {}
-        print("auth1")
         if request.args.get('code') is None:
-            print("auth2")
-            data['grant_type']      = "client_credentials"
-            data['access_token']    = self.curlExec("oauth2/token",data).json()['access_token']
-            print("auth3")
+            data['grant_type'] = "client_credentials"
+            accessToken = self.curlExec("oauth2/token",data).json()['access_token']
+            data['access_token']    = accessToken
             res = self.curlExec("oauth2/resource", data)
             if res.status_code == 200:
-                print("auth4")
                 userHash = str(hashlib.sha1(str(request.remote_addr).encode('utf-8') + str(request.headers.get('User-Agent')).encode('utf-8')).hexdigest())
                 URL = self.hostname + "site/login?response_type=code&client_id=" + self.username + "&state=" + userHash + "&scope=" + self.scope
                 return redirect(URL, code=302)
-            print("auth5")
+            else:
+                return redirect("error.html", code=302)
         else:
             data['grant_type'] = "authorization_code"
             data['code'] = request.args.get('code')
