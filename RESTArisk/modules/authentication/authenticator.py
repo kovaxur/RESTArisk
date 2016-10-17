@@ -18,8 +18,8 @@ class Authenticator:
             if "access_token" in session and "refresh_token" in session and "start" in session:
                 if session['access_token'] != None and session['refresh_token'] != None and session['start'] != None:
                     if (session['start'] + datetime.timedelta(seconds=session['expires_in'])) > datetime.datetime.now():
-                        return True
-            return False
+                        return "true"
+            return "false"
 
         @flaskApp.app.route("/logout")
         def logout():
