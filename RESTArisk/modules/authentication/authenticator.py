@@ -2,11 +2,12 @@ import datetime
 from authentication.SSO import SSO
 from flask import session
 
+
 class Authenticator:
     """ This class will provide a decorator to decorate calls, which must be authenticated"""
-    SSO = SSO()
+    SSO = None
     def __init__(self,flaskApp):
-        pass
+        self.SSO = SSO()
 
         @flaskApp.app.route("/auth")
         def auth():

@@ -2,22 +2,28 @@ import requests
 from requests.auth import HTTPBasicAuth
 import datetime
 
+
 from .authentication import Authentication
 from flask import redirect
 from flask import request
 from flask import session
 import hashlib
 import json
+from settings import Settings
 
 class SSO(Authentication):
-    hostname = "https://auth.sch.bme.hu/"
-    username = ""
-    password = ""
+    hostname = None
+    username = None
+    password = None
     scope = "basic"
     _tokens = None
-    redirectOnAuth = "index.html"
+    redirectOnAuth = None
 
     def __init__(self):
+        self.hostname = Settings.getConfigValue("oauth2","hostname")
+        self.username = Settings.getConfigValue("oauth2","username")
+        self.password = Settings.getConfigValue("oauth2","password")
+        self.redirectOnAuth = Settings.getConfigValue("oauth2","redirect")
         pass
 
     def reauthenticate(self):
