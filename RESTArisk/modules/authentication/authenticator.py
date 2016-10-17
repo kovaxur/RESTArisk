@@ -26,6 +26,18 @@ class Authenticator:
             session.clear()
             return "LoggedOut"
 
+        @flaskApp.app.route("/internal_id")
+        def getInternalID():
+            if "internal_id" in session:
+                return session["internal_id"]
+            return "false"
+
+        @flaskApp.app.route("/displayName")
+        def getDisplayName():
+            if "displayName" in session:
+                return session["displayName"]
+            else:
+                return "false"
 
     def authenticateForce(self):
         return self.SSO.authenticate()

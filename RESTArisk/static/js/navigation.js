@@ -9,10 +9,12 @@ function navReady() {
 
     $('#login').click(function() {
         if(loggedin == true ) {
-        getData("/logout",ifLoggedIn)
-    } else {
-        window.location.replace("/auth");
-    }
+            $('#login').text('Logging out..');
+            getData("/logout",ifLoggedIn)
+        } else {
+            $('#login').text('Logging in..');
+            window.location.replace("/auth");
+        }
     });
 };
 

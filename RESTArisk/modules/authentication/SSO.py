@@ -15,7 +15,7 @@ class SSO(Authentication):
     hostname = None
     username = None
     password = None
-    scope = "basic"
+    scope = "basic+displayName"
     _tokens = None
     redirectOnAuth = None
 
@@ -34,6 +34,7 @@ class SSO(Authentication):
         data['refresh_token'] = session['refresh_token']
         ch = self.curlExec("oauth2/token", data)
         print(ch.text)
+        self.setSessionData()
         self.sessionCreate(ch)
 
 
@@ -54,8 +55,13 @@ class SSO(Authentication):
             data['grant_type'] = "authorization_code"
             data['code'] = request.args.get('code')
             ch = self.curlExec("oauth2/token",data)
-            self.sessionCreate(ch)
-            return redirect(self.redirectOnAuth,code=302)
+            print(ch)
+            if ch.status_code == 200:
+                self.sessionCreate(ch)
+                self.setSessionData()
+                return redirect(self.redirectOnAuth,code=302)
+            else:
+                return redirect("error.html", code=302)
 
 
     def curlExec(self,urlPart, data):
@@ -75,6 +81,19 @@ class SSO(Authentication):
         session['expires_in']       = data['expires_in']
         session['start']            = datetime.datetime.now()
 
+    def setSessionData(self):
+        data = self.getData()
+        session['internal_id'] = data['internal_id']
+        session['displayName'] = data['displayName']
+
+    def getData(self):
+        url = self.hostname + "api/profile/?access_token=" + session['access_token']
+        ret = requests.get(url)
+        if( ret != None and ret.status_code == 200):
+            data = ret.json()
+            if data != None:
+                return data
+        return None
 
 if __name__ == "__main__":
     s = SSO()
