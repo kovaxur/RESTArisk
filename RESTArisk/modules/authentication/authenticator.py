@@ -16,14 +16,10 @@ class Authenticator:
         @flaskApp.app.route("/isAuthenticated")
         def isAuthenticated():
             if "access_token" in session and "refresh_token" in session and "start" in session:
-                print("1")
                 if session['access_token'] != None and session['refresh_token'] != None and session['start'] != None:
-                    print("1")
                     if (session['start'] + datetime.timedelta(seconds=session['expires_in'])) > datetime.datetime.now():
-                        print("time")
-                        print(session)
-                        return "True"
-            return "False"
+                        return True
+            return False
 
         @flaskApp.app.route("/logout")
         def logout():
@@ -37,7 +33,6 @@ class Authenticator:
     def authenticate(self):
         if (session['start'] + datetime.timedelta(seconds=session['expires_in'])) < datetime.datetime.now():
             self.SSO.reauthenticate()
-            #return self.authenticateForce(self)
         return True
 
     @classmethod

@@ -9,6 +9,8 @@ $(document).ready(function() {
 function loadHTMLElements(callback=null) {
     $("#navigation").load("navigation.html",function() {
         loadHTMLElementsReady(callback);
+        navReady()
+
     });
     $("#header").load("header.html",function() {
         loadHTMLElementsReady(callback);
