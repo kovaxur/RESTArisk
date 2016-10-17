@@ -13,6 +13,23 @@ class Authenticator:
         def auth():
             return self.authenticateForce()
 
+        @flaskApp.app.route("/isAuthenticated")
+        def isAuthenticated():
+            if "access_token" in session and "refresh_token" in session and "start" in session:
+                print("1")
+                if session['access_token'] != None and session['refresh_token'] != None and session['start'] != None:
+                    print("1")
+                    if (session['start'] + datetime.timedelta(seconds=session['expires_in'])) > datetime.datetime.now():
+                        print("time")
+                        print(session)
+                        return "True"
+            return "False"
+
+        @flaskApp.app.route("/logout")
+        def logout():
+            session.clear()
+            return "LoggedOut"
+
 
     def authenticateForce(self):
         return self.SSO.authenticate()

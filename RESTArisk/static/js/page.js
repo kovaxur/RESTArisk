@@ -13,9 +13,6 @@ function loadHTMLElements(callback=null) {
     $("#header").load("header.html",function() {
         loadHTMLElementsReady(callback);
     });
-
-
-
 };
 
 function loadHTMLElementsReady(callback=null) {

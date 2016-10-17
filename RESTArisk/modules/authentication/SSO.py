@@ -72,7 +72,7 @@ class SSO(Authentication):
         session['refresh_token']    = data['refresh_token']
         session['token_type']       = data['token_type']
         session['scope']            = data['scope']
-        session['expires_in']       = 10
+        session['expires_in']       = data['expires_in']
         session['start']            = datetime.datetime.now()
 
 
