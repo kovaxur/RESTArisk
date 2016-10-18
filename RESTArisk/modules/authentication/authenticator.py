@@ -7,7 +7,6 @@ class Authenticator:
     """ This class will provide a decorator to decorate calls, which must be authenticated"""
     SSO = None
     def __init__(self,flaskApp):
-
         self.SSO = SSO()
 
         #Starts the authentication process
@@ -15,8 +14,8 @@ class Authenticator:
         def auth():
             return self.authenticateForce()
 
-        # Returns true, if the user is authenticated, false if not, this is handy, if you wan't to do someting on the
-        # front-en, in case if the user is logged in.
+        # Returns true, if the user is authenticated, false if not, this is handy, if you wan't to do something on the
+        # front-end, in case if the user is logged in.
         @flaskApp.app.route("/isAuthenticated")
         def isAuthenticated():
             # If we have the important data in the session dict
