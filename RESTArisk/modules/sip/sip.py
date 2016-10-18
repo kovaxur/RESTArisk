@@ -7,6 +7,6 @@ class SIP:
 
         @self.flaskApp.app.route('/phone/users')
         @Authenticator.auth
-        def getSIPUsers(self,username):
+        def getSIPUsers(self):
             print("GetSIPUsers")
             return "phone-1"

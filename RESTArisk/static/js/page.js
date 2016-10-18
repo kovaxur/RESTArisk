@@ -6,7 +6,7 @@ $(document).ready(function() {
     loadHTMLElements()
 });
 
-function loadHTMLElements(callback=null) {
+function loadHTMLElements(callback) {
     $("#header").load("header.html",function() {
         loadHTMLElementsReady(callback);
     });
@@ -17,5 +17,5 @@ function loadHTMLElements(callback=null) {
 
 };
 
-function loadHTMLElementsReady(callback=null) {
+function loadHTMLElementsReady(callback) {
 };
