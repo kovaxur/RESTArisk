@@ -10,6 +10,8 @@ class Authenticator:
     def __init__(self,flask_app):
         Authenticator.SSO = SSO()
 
+        # TODO: This disables caching, its needed for the login/logout stuff, but should be consolidated somehow,
+        # to not to disable all the cahing..
         @flask_app.app.after_request
         def add_header(response):
             """
@@ -19,6 +21,7 @@ class Authenticator:
             response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
             response.headers['Cache-Control'] = 'public, max-age=0'
             return response
+
         #Starts the authentication process
         @flask_app.app.route("/auth")
         def auth():
@@ -30,7 +33,7 @@ class Authenticator:
             try:
                 ret = self.authenticate_force()
                 if ret is True:
-                    return redirect(Settings.getConfigValue("oauth2","redirect"), code=302)
+                    return redirect(Settings.getConfigValue("redirects","login"), code=302)
                 else:
                     return redirect(ret, code=302)
             except:
@@ -122,7 +125,7 @@ class Authenticator:
         """
         def auth_wrapper(*args,**kwargs):
             if not cls.is_authenticated():
-                raise Exception("Not authenticated")
+                return redirect(Settings.getConfigValue("redirects", "error"), code=302)
             else:
                 return func(args)
         return auth_wrapper

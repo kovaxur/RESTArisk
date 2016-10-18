@@ -3,7 +3,6 @@ from flask import Flask
 from threading import Thread
 from flask import request
 from flask import send_from_directory
-from flask import session
 
 
 class WebApp(Thread):
