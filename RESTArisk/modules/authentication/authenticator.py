@@ -22,6 +22,11 @@ class Authenticator:
         #Starts the authentication process
         @flask_app.app.route("/auth")
         def auth():
+            """
+            Will do an authentication through the auth portal, if all ok, then it will redirect the user
+            to the preset page, else it will show some error.
+            :return:
+            """
             try:
                 ret = self.authenticate_force()
                 if ret is True:
@@ -35,6 +40,10 @@ class Authenticator:
         # front-end, in case if the user is logged in.
         @flask_app.app.route("/isAuthenticated")
         def is_authenticated():
+            """
+            Can be checked, if the user is logged in, good for the web interface.
+            :return:
+            """
             try:
                 if Authenticator.is_authenticated():
                     return "true"
@@ -45,6 +54,10 @@ class Authenticator:
         # Logs out the user, simply just removes the session data
         @flask_app.app.route("/logout")
         def logout():
+            """
+            Removes the user's session, aka logs it out.
+            :return:
+            """
             try:
                 session.clear()
                 return "true"
@@ -54,6 +67,10 @@ class Authenticator:
         # Returns the users' internal_id
         @flask_app.app.route("/internal_id")
         def get_internal_id():
+            """
+            Returns the user's internal ID
+            :return:
+            """
             if "internal_id" in session:
                 return session["internal_id"]
             raise Exception("Error Internal Id Not Found")
@@ -61,6 +78,10 @@ class Authenticator:
         # Returns the users' name
         @flask_app.app.route("/displayName")
         def get_display_name():
+            """
+            Returns the user's name
+            :return:
+            """
             if "displayName" in session:
                 return session["displayName"]
             else:
@@ -68,6 +89,10 @@ class Authenticator:
 
     @classmethod
     def is_authenticated(cls):
+        """
+        Check whether the user is authenticated (logged in)
+        :return:
+        """
         # If we have the important data in the session dict
         if "access_token" in session and "refresh_token" in session and "start" in session:
             # And if those data is not null
@@ -80,12 +105,21 @@ class Authenticator:
     # Forces authentication, authenticate if you call it, won't check, if the user is already authenticated.
     @classmethod
     def authenticate_force(cls):
+        """
+        Forces the auth portal authentication
+        :return:
+        """
         return cls.SSO.authenticate()
 
     # Wrapper for authentication, if will act as a proxy, it will only let the command go through, if the user is
     # authenticated.
     @classmethod
     def auth(cls,func):
+        """
+        Authenticates a call, it checks if the user is logged in, if not, it wil throw an error.
+        :param func:
+        :return:
+        """
         def auth_wrapper(*args,**kwargs):
             if not cls.is_authenticated():
                 raise Exception("Not authenticated")
