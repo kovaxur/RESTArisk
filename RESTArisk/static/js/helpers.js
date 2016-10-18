@@ -1,6 +1,8 @@
 //Get
 function getData(URL,callback){
   $.get(URL, function(data){
-    callback(data)
+    if( callback != null) {
+      callback(data)
+    }
   });
 }

@@ -22,7 +22,6 @@ class SSO(Authentication):
         self.hostname = Settings.getConfigValue("oauth2","hostname")
         self.username = Settings.getConfigValue("oauth2","username")
         self.password = Settings.getConfigValue("oauth2","password")
-        self.redirectOnAuth = Settings.getConfigValue("oauth2","redirect")
 
     # This will do a reauthenticate, if the users' session expires.
     def reauthenticate(self):
@@ -50,10 +49,10 @@ class SSO(Authentication):
                 # Get the REST API's URL
                 URL = self.hostname + "site/login?response_type=code&client_id=" + self.username + "&state=" + userHash + "&scope=" + self.scope
                 # Redirect the user to the login page
-                return redirect(URL, code=302)
+                return URL
             else:
                 # If something bad happens, some error page should be shown.
-                return redirect("error.html", code=302)
+                raise Exception("Login Error")
         else:
             # If we have the access code, get the user's access token
             data['grant_type'] = "authorization_code"
@@ -64,10 +63,10 @@ class SSO(Authentication):
                 self.sessionCreate(ch)
                 self.setSessionData()
                 # Finally redirect the user to the home page
-                return redirect(self.redirectOnAuth,code=302)
+                return True
             else:
                 # Otherwise redirect to an error page
-                return redirect("error.html", code=302)
+                raise Exception("Login Error")
 
     # Just a simple requests.post wrapper
     def curlExec(self,urlPart, data):

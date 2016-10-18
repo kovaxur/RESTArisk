@@ -21,7 +21,7 @@ class WebApp(Thread):
             return send_from_directory('../../static', path)
 
 
-        self.app.run(host='0.0.0.0', port=5000, debug=False)
+        self.app.run(host='0.0.0.0', port=5000, debug=False,threaded=True)
 
     def stop(self):
         try:
