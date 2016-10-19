@@ -3,7 +3,6 @@ from flask import Flask
 from threading import Thread
 from flask import request
 from flask import send_from_directory
-from flask import session
 
 
 class WebApp(Thread):
@@ -21,7 +20,7 @@ class WebApp(Thread):
             return send_from_directory('../../static', path)
 
 
-        self.app.run(host='0.0.0.0', port=5000, debug=False)
+        self.app.run(host='0.0.0.0', port=5000, debug=False,threaded=True)
 
     def stop(self):
         try:
