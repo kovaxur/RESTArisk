@@ -9,7 +9,7 @@ class Settings:
     @classmethod
     def initConfig(cls):
         cls.config = configparser.ConfigParser()
-        cls.config.read("RESTArisk/settings.ini")
+        cls.config.read("ServeYourself/settings.ini")
 
 
     @classmethod
