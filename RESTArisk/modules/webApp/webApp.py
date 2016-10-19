@@ -14,11 +14,9 @@ class WebApp(Thread):
         super(WebApp, self).__init__()
 
     def run(self):
-
         @self.app.route('/<path:path>')
         def sendStatic(path):
             return send_from_directory('../../static', path)
-
 
         self.app.run(host='0.0.0.0', port=5000, debug=False,threaded=True)
 
@@ -30,6 +28,5 @@ class WebApp(Thread):
             func()
         except:
             pass
-
 
 

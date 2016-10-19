@@ -10,7 +10,7 @@ class Authenticator:
     def __init__(self,flask_app):
         Authenticator.SSO = SSO()
 
-        # TODO: This disables caching, its needed for the login/logout stuff, but should be consolidated somehow,
+        # TODO: This disables caching, its needed for the REST API stuff, but should be consolidated somehow,
         # to not to disable all the cahing..
         @flask_app.app.after_request
         def add_header(response):
