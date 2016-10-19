@@ -1,4 +1,5 @@
 from authentication.authenticator import Authenticator
+from authorization.authorization import Authorization
 
 class SIP:
     flaskApp = None
@@ -6,6 +7,7 @@ class SIP:
         self.flaskApp = flaskApp
 
         @self.flaskApp.app.route('/phone/users')
+        @Authorization.auth
         @Authenticator.auth
         def getSIPUsers(self):
             print("GetSIPUsers")
