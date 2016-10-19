@@ -13,7 +13,7 @@ class Authenticator:
     def __init__(self):
         Authenticator.SSO = SSO()
 
-
+    @classmethod
     def is_authenticated(cls):
         """
         Check whether the user is authenticated (logged in)
@@ -29,12 +29,12 @@ class Authenticator:
         return False
 
     # Forces authentication, authenticate if you call it, won't check, if the user is already authenticated.
-    def authenticate_force(cls):
+    def authenticate_force(self):
         """
         Forces the auth portal authentication
         :return:
         """
-        return cls.SSO.authenticate()
+        return self.SSO.authenticate()
 
     # Wrapper for authentication, if will act as a proxy, it will only let the command go through, if the user is
     # authenticated.

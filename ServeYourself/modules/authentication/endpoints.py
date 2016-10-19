@@ -6,7 +6,7 @@ from flask import jsonify
 from authentication.authenticator import Authenticator
 
 
-class Endpoints():
+class Endpoints:
     """ This class will provide a decorator to decorate calls, which must be authenticated"""
 
     def __init__(self, flask_app):

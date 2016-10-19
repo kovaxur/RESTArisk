@@ -8,8 +8,10 @@ import json
 from settings import Settings
 from .authentication import Authentication
 
-"""This class does the authentication through an SSO server(oauth2)"""
+
 class SSO(Authentication):
+    """This class does the authentication through an SSO server(oauth2)"""
+
     hostname = None
     username = None
     password = None
