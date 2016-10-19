@@ -6,16 +6,16 @@ $(document).ready(function() {
     loadHTMLElements()
 });
 
-function loadHTMLElements(callback=null) {
-    $("#navigation").load("navigation.html",function() {
-        loadHTMLElementsReady(callback);
-        navReady()
-
-    });
+function loadHTMLElements(callback) {
     $("#header").load("header.html",function() {
         loadHTMLElementsReady(callback);
     });
+    $("#navigation").load("navigation.html",function() {
+        loadHTMLElementsReady(callback);
+        navReady()
+    });
+
 };
 
-function loadHTMLElementsReady(callback=null) {
+function loadHTMLElementsReady(callback) {
 };

@@ -11,14 +11,18 @@ function navReady() {
         if(loggedin == true ) {
             $('#login').text('Logging out..');
             getData("/logout",ifLoggedIn)
+            getData("/isAuthenticated",ifLoggedIn)
+            window.location.replace("/index.html");
         } else {
             $('#login').text('Logging in..');
             window.location.replace("/auth");
+            getData("/isAuthenticated",ifLoggedIn)
         }
     });
 };
 
 function ifLoggedIn(data) {
+    console.log(data)
     if( data === "true" ) {
         $('#login').text('Logout');
         loggedin = true
