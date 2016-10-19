@@ -1,4 +1,4 @@
-from RESTArisk.modules.DB import DB
+from ServeYourself.modules.DB import DB
 from sqlalchemy import Column, Integer, String, Table, MetaData
 from sqlalchemy.types import Enum
 from sqlalchemy.ext.declarative import declarative_base
