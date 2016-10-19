@@ -2,10 +2,7 @@ from flask import session
 from flask import jsonify
 
 
-class Endpoints():
-
-    def __init__(self, role):
-        self.role = role
+class Endpoints:
 
     def __init__(self, flask_app):
 
