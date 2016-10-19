@@ -1,8 +1,17 @@
-class SingleTone(object):
-    __instance = None
+import threading
 
-    def __new__(cls, *args, **kwargs):
-        if SingleTone.__instance is None:
-            SingleTone.__instance = object.__new__(cls)
-            cls.__init__(cls, *args, **kwargs)
-        return SingleTone.__instance
+
+class Singleton(object):
+    __singleton_lock = threading.Lock()
+    __singleton_instance = None
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    @classmethod
+    def instance(cls, *args, **kwargs):
+        if not cls.__singleton_instance:
+            with cls.__singleton_lock:
+                if not cls.__singleton_instance:
+                    cls.__singleton_instance = cls(*args, **kwargs)
+        return cls.__singleton_instance
