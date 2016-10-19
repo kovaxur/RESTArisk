@@ -3,6 +3,7 @@ from authentication.SSO import SSO
 from flask import session
 from flask import redirect
 from settings import Settings
+from flask import jsonify
 
 class Authenticator:
     """ This class will provide a decorator to decorate calls, which must be authenticated"""
@@ -86,7 +87,7 @@ class Authenticator:
             :return:
             """
             if "displayName" in session:
-                return session["displayName"]
+                return jsonify(displayName=session["displayName"])
             else:
                 raise Exception("Display Name Not Found")
 
