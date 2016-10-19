@@ -9,7 +9,6 @@ class Authorization(object):
     def __init__(self, role_needed):
         self.role_needed = role_needed
 
-
     def __call__(self, f):
         @wraps(f)
         def auth_wrapper(*args):
