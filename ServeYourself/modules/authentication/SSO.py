@@ -8,12 +8,14 @@ import json
 from settings import Settings
 from .authentication import Authentication
 
-"""This class does the authentication through an SSO server(oauth2)"""
+
 class SSO(Authentication):
+    """This class does the authentication through an SSO server(oauth2)"""
+
     hostname = None
     username = None
     password = None
-    scope = "basic+displayName"
+    scope = "basic+displayName+admembership"
     _tokens = None
 
     def __init__(self):
@@ -76,18 +78,19 @@ class SSO(Authentication):
     # This creates the user session from the data got from the SSO server.
     def session_create(self, ch):
         data = json.loads(ch.text)
-        session['access_token']     = data['access_token']
-        session['refresh_token']    = data['refresh_token']
-        session['token_type']       = data['token_type']
-        session['scope']            = data['scope']
-        session['expires_in']       = data['expires_in']
-        session['start']            = datetime.datetime.now()
+        session['access_token'] = data['access_token']
+        session['refresh_token'] = data['refresh_token']
+        session['token_type'] = data['token_type']
+        session['scope'] = data['scope']
+        session['expires_in'] = data['expires_in']
+        session['start'] = datetime.datetime.now()
 
     # This adds some additional data to the user session
     def set_session_data(self):
         data = self.get_data()
         session['internal_id'] = data['internal_id']
         session['displayName'] = data['displayName']
+        session['roles'] = data["admembership"]
 
     # This asks for additional data about the user, such as username, the user's name, email etc..
     def get_data(self):

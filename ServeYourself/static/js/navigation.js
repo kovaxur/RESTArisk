@@ -6,6 +6,8 @@ var loggedin = false
 
 function navReady() {
     getData("/isAuthenticated",ifLoggedIn)
+    getData("/role",setRole)
+    getData("/displayName",setName)
 
     $('#login').click(function() {
         if(loggedin == true ) {
@@ -31,4 +33,14 @@ function ifLoggedIn(data) {
         loggedin = false
     }
 };
+
+function setRole(role) {
+    $('#role').text('(' + role.role + ')')
+
+}
+
+function setName(name) {
+    $('#username').text(name.displayName)
+
+}
 

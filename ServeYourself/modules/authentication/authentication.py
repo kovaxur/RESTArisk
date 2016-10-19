@@ -1,7 +1,7 @@
 
 class Authentication:
     def __init__(self):
-        pass
+        raise NotImplementedError("Please override this function")
 
     def authenticate(self):
-        pass
+        raise NotImplementedError("Please override this function")
