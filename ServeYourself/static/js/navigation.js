@@ -10,7 +10,7 @@ function navReady() {
     getData("/displayName",setName)
 
     $('#login').click(function() {
-        if(loggedin == true ) {
+        if( loggedin == true ) {
             $('#login').text('Logging out..');
             getData("/logout",ifLoggedIn)
             getData("/isAuthenticated",ifLoggedIn)
@@ -25,7 +25,7 @@ function navReady() {
 
 function ifLoggedIn(data) {
     console.log(data)
-    if( data === "true" ) {
+    if( data.status === true ) {
         $('#login').text('Logout');
         loggedin = true
     } else {

@@ -51,10 +51,10 @@ class Endpoints:
             """
             try:
                 if self.authenticator.is_authenticated():
-                    return "true"
-                return "false"
+                    return jsonify(status=True)
+                return jsonify(status=False)
             except:
-                return "false"
+                return jsonify(status=False)
 
         # Logs out the user, simply just removes the session data
         @flask_app.app.route("/logout")
@@ -65,9 +65,9 @@ class Endpoints:
             """
             try:
                 session.clear()
-                return "true"
+                return jsonify(status=True)
             except:
-                return "false"
+                return jsonify(status=False)
 
         # Returns the users' internal_id
         @flask_app.app.route("/internal_id")
@@ -77,8 +77,8 @@ class Endpoints:
             :return:
             """
             if "internal_id" in session:
-                return session["internal_id"]
-            raise Exception("Error Internal Id Not Found")
+                return jsonify(session_id=session["internal_id"])
+            return jsonify(session_id="")
 
         # Returns the users' name
         @flask_app.app.route("/displayName")
@@ -90,4 +90,4 @@ class Endpoints:
             if "displayName" in session:
                 return jsonify(displayName=session["displayName"])
             else:
-                raise Exception("Display Name Not Found")
+                return jsonify(displayName="")
