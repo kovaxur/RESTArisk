@@ -9,8 +9,15 @@ class SIP:
         self.flaskApp = flaskApp
 
         @self.flaskApp.app.route('/phone/users')
-        @Authorization.auth('admin')
-        @Authenticator.auth
+        @Authorization('admin')
+        @Authenticator()
         def getSIPUsers(self):
             print("GetSIPUsers")
             return "phone-1"
+
+        @self.flaskApp.app.route('/phone/userskszk')
+        @Authorization('KSZK')
+        @Authenticator()
+        def getSIPUserKSZKs(self):
+            print("GetSIPUsersKSZK")
+            return "phone-kszk"
