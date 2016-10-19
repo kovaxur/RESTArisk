@@ -81,6 +81,7 @@ class SSO(Authentication):
         session['token_type']       = data['token_type']
         session['scope']            = data['scope']
         session['expires_in']       = data['expires_in']
+        session['role'] = "lller"
         session['start']            = datetime.datetime.now()
 
     # This adds some additional data to the user session

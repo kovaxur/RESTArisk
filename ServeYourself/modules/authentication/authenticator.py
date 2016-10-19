@@ -33,11 +33,11 @@ class Authenticator:
             try:
                 ret = self.authenticate_force()
                 if ret is True:
-                    return redirect(Settings.getConfigValue("redirects","login"), code=302)
+                    return redirect(Settings.getConfigValue("redirects", "login"), code=302)
                 else:
                     return redirect(ret, code=302)
             except:
-                return "ERROR"
+                raise
 
         # Returns true, if the user is authenticated, false if not, this is handy, if you wan't to do something on the
         # front-end, in case if the user is logged in.
@@ -117,13 +117,14 @@ class Authenticator:
     # Wrapper for authentication, if will act as a proxy, it will only let the command go through, if the user is
     # authenticated.
     @classmethod
-    def auth(cls,func):
+    def auth(cls, func):
         """
         Authenticates a call, it checks if the user is logged in, if not, it wil throw an error.
         :param func:
         :return:
         """
-        def auth_wrapper(*args,**kwargs):
+        def auth_wrapper(*args, **kwargs):
+            print("auth")
             if not cls.is_authenticated():
                 return redirect(Settings.getConfigValue("redirects", "error"), code=302)
             else:

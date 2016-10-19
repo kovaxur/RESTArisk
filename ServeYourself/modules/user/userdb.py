@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from DB.DB import DB
 from settings import Settings
 
-class AuthDB(DB):
+class UserDB(DB):
     Base = declarative_base()
 
     def __init__(self):
