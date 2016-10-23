@@ -14,6 +14,7 @@ function loadHTMLElements(callback) {
         loadHTMLElementsReady(callback);
         navReady()
     });
+    $('#content').load('sites/' + GetURLParameter('site') + '.html')
 
 };
 
