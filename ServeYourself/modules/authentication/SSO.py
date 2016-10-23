@@ -15,7 +15,7 @@ class SSO(Authentication):
     hostname = None
     username = None
     password = None
-    scope = "basic+displayName+admembership"
+    scope = "basic+displayName+admembership+linkedAccounts"
     _tokens = None
 
     def __init__(self):
@@ -91,6 +91,8 @@ class SSO(Authentication):
         session['internal_id'] = data['internal_id']
         session['displayName'] = data['displayName']
         session['roles'] = data["admembership"]
+        session['schacc'] = data['linkedAccounts']['schacc']
+        print(data)
 
     # This asks for additional data about the user, such as username, the user's name, email etc..
     def get_data(self):
